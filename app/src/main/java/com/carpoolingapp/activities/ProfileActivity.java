@@ -9,9 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import com.carpooling.app.R;
-import com.carpooling.app.utils.FirebaseHelper;
-import com.carpooling.app.utils.SharedPrefsHelper;
+import com.carpoolingapp.R;
+import com.carpoolingapp.utils.FirebaseHelper;
+import com.carpoolingapp.utils.SharedPrefsHelper;
 import com.google.android.material.button.MaterialButton;
 
 public class ProfileActivity extends AppCompatActivity {

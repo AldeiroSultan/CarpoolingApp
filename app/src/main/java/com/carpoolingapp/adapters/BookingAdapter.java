@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.carpooling.app.R;
-import com.carpooling.app.models.Booking;
+import com.carpoolingapp.R;
+import com.carpoolingapp.models.Booking;
 import java.util.List;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder> {

@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
-import com.carpooling.app.R;
+import com.carpoolingapp.R;
 
 public class ListingManagementActivity extends AppCompatActivity {
 

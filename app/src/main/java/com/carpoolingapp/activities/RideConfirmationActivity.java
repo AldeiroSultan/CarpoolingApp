@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.carpooling.app.R;
+import com.carpoolingapp.R;
 import com.google.android.material.button.MaterialButton;
 
 public class RideConfirmationActivity extends AppCompatActivity {

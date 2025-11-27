@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
-import com.carpooling.app.R;
-import com.carpooling.app.utils.FirebaseHelper;
-import com.carpooling.app.utils.SharedPrefsHelper;
+import com.carpoolingapp.R;
+import com.carpoolingapp.utils.FirebaseHelper;
+import com.carpoolingapp.utils.SharedPrefsHelper;
 
 public class SplashActivity extends AppCompatActivity {
 

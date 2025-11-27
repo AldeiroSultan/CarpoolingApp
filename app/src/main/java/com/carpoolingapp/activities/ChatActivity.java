@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.carpooling.app.R;
+import com.carpoolingapp.R;
 
 public class ChatActivity extends AppCompatActivity {
 
