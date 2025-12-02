@@ -52,13 +52,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initViews() {
         userNameText = findViewById(R.id.userNameText);
-        sectionTitle = findViewById(R.id.sectionTitle);
+        TextView userNameText2 = findViewById(R.id.userNameText2);
         myBookingsButton = findViewById(R.id.myBookingsButton);
         myListingsButton = findViewById(R.id.myListingsButton);
         recyclerView = findViewById(R.id.recyclerView);
         emptyState = findViewById(R.id.emptyState);
         bottomNav = findViewById(R.id.bottomNav);
-        searchCard = findViewById(R.id.searchCard);
+        searchCard = findViewById(R.id.searchView);
     }
 
     private void initFirebase() {

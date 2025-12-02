@@ -162,7 +162,7 @@
                 android:id="@+id/userImage"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_myplaces" />
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/userNameText"
