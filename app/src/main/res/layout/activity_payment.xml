@@ -11,10 +11,13 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:elevation="4dp"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
-        app:title="@string/payment" />
+        app:navigationIcon="@drawable/blue"
+        app:title="@string/payment"
+        app:titleMarginStart="85dp"
+        app:titleTextColor="#788DAD" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,16 +28,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/payment_method"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
 
             <!-- Credit Card Option -->
             <com.google.android.material.card.MaterialCardView
@@ -112,21 +108,25 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Card Information -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/card_information"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/primary_blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:layout_marginTop="16dp"
-                android:hint="Card Number">
+                android:hint="Card Number"
+                app:boxBackgroundColor="#669CABC2"
+                app:boxStrokeColor="#9CABC2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/cardNumberEditText"
@@ -135,49 +135,51 @@
                     android:inputType="number"
                     android:maxLength="16" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/EditTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:hint="Expiry Date"
+                        app:boxBackgroundColor="#739CABC2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/expiryEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/EditTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        android:hint="CVV"
+                        app:boxBackgroundColor="#729CABC2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cvvEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberPassword"
+                            android:maxLength="3" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
             </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/EditTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="Expiry Date">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/expiryEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="date" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/EditTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:hint="CVV">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/cvvEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberPassword"
-                        android:maxLength="3" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -190,7 +192,7 @@
         android:background="@color/white"
         android:elevation="8dp"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -202,8 +204,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/order_total"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"
+                android:textColor="@color/background_blue"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -212,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:text="$ 45"
                 android:textColor="@color/text_primary"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -223,7 +225,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:text="@string/make_payment" />
+            android:text="@string/make_payment"
+            app:backgroundTint="#9CABC2" />
 
     </LinearLayout>
 

@@ -93,4 +93,6 @@
     <string name="error_short_password">Password must be at least 6 characters</string>
     <string name="error_login_failed">Login failed. Please try again</string>
     <string name="error_register_failed">Registration failed. Please try again</string>
+    <string name="empty">Empty</string>
+    <string name="no_rides_yet">No rides yet</string>
 </resources>

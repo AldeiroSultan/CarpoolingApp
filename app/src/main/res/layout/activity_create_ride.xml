@@ -11,10 +11,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:elevation="4dp"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
-        app:title="Plan your ride" />
+        app:navigationIcon="@drawable/arrow"
+        app:title="Create your ride" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="30dp">
 
             <!-- Mode Toggle -->
             <LinearLayout
@@ -39,23 +40,23 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:text="I'm looking for a ride"
                     android:textColor="@color/primary_blue"
-                    app:strokeColor="@color/primary_blue"
-                    app:cornerRadius="20dp" />
+                    app:cornerRadius="20dp"
+                    app:strokeColor="@color/primary_blue" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/hostingRideButton"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="8dp"
+                    android:layout_weight="1"
                     android:text="I'm hosting a ride"
                     android:textColor="@color/white"
-                    app:backgroundTint="@color/status_active"
+                    app:backgroundTint="#9CABC2"
                     app:cornerRadius="20dp" />
 
             </LinearLayout>
@@ -78,8 +79,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@android:drawable/ic_menu_mylocation"
-                        android:contentDescription="From" />
+                        android:contentDescription="From"
+                        android:src="@android:drawable/ic_menu_mylocation" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -129,8 +130,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@android:drawable/ic_dialog_map"
-                        android:contentDescription="To" />
+                        android:contentDescription="To"
+                        android:src="@android:drawable/ic_dialog_map" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -187,8 +188,8 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@android:drawable/ic_menu_my_calendar"
-                            android:contentDescription="Date" />
+                            android:contentDescription="Date"
+                            android:src="@android:drawable/ic_menu_my_calendar" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -229,8 +230,8 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@android:drawable/ic_menu_recent_history"
-                            android:contentDescription="Time" />
+                            android:contentDescription="Time"
+                            android:src="@android:drawable/ic_menu_recent_history" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -279,8 +280,8 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@android:drawable/ic_menu_myplaces"
-                            android:contentDescription="Seats" />
+                            android:contentDescription="Seats"
+                            android:src="@android:drawable/ic_menu_myplaces" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -322,8 +323,8 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@android:drawable/ic_menu_sort_by_size"
-                            android:contentDescription="Price" />
+                            android:contentDescription="Price"
+                            android:src="@android:drawable/ic_menu_sort_by_size" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -354,10 +355,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/createRideButton"
                 style="@style/ButtonPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_width="371dp"
+                android:layout_height="69dp"
                 android:layout_marginTop="24dp"
-                android:text="Create Ride" />
+                android:text="Create Ride"
+                app:backgroundTint="#9CABC2" />
 
         </LinearLayout>
 

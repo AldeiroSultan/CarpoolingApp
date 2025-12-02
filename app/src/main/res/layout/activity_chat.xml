@@ -10,10 +10,11 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_blue"
-        android:elevation="4dp"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
+        android:layout_height="wrap_content"
+        android:background="#9CABC2"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        app:navigationIcon="@drawable/white_arrow"
         app:title="Chat"
         app:titleTextColor="@color/white" />
 
@@ -30,7 +31,7 @@
             android:id="@+id/otherUserImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_myplaces" />
+            android:src="@drawable/avatar" />
 
         <TextView
             android:id="@+id/otherUserName"
@@ -86,10 +87,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="726dp"
         android:layout_weight="1"
-        android:padding="12dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:padding="12dp" />
 
     <!-- Message Input -->
     <LinearLayout

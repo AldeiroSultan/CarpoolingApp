@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="$45"
                 android:textColor="@color/text_primary"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <Space
@@ -82,9 +82,9 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:src="@android:drawable/ic_dialog_map"
                 android:contentDescription="To"
-                app:tint="@color/status_error" />
+                android:src="@android:drawable/ic_dialog_map"
+                app:tint="@color/button_primary" />
 
             <TextView
                 android:id="@+id/toText"
@@ -110,8 +110,8 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
-                android:src="@android:drawable/ic_menu_my_calendar"
                 android:contentDescription="Date"
+                android:src="@drawable/today"
                 app:tint="@color/text_secondary" />
 
             <TextView

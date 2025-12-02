@@ -3,30 +3,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background_light">
+    android:background="#839CABC2"
+    android:orientation="vertical">
 
     <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_blue"
-        android:elevation="4dp"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
-        app:title="Search Results"
-        app:titleTextColor="@color/white" />
 
     <!-- Search Results RecyclerView -->
+
+    <!-- Empty State -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="257dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="-20dp"
+        app:cardBackgroundColor="#788DAD"
+        app:cardCornerRadius="30dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="#788DAD"
+            android:paddingStart="10dp"
+            app:navigationIcon="@drawable/white_arrow"
+            app:titleTextColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="120dp"
+            android:text="Sorted by"
+            android:textColor="#FFFFFFFF"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="145dp"
+            android:text="Cheapest"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ridesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="-30dp"
         android:layout_weight="1"
+        android:clipToPadding="false"
         android:padding="16dp"
-        android:clipToPadding="false" />
+        android:paddingTop="30dp">
 
-    <!-- Empty State -->
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/demoButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="📍 Demo: See booking walkthrough"
+        android:textColor="@color/primary_blue"
+        android:textSize="14sp" />
+
     <LinearLayout
         android:id="@+id/emptyState"
         android:layout_width="match_parent"
@@ -40,20 +88,20 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:alpha="0.3"
-            android:src="@android:drawable/ic_menu_search"
-            android:contentDescription="No rides" />
+            android:contentDescription="No rides"
+            android:src="@android:drawable/ic_menu_search" />
 
         <TextView
             android:id="@+id/emptyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="No rides found"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp"
-            android:textAlignment="center"
             android:paddingStart="24dp"
-            android:paddingEnd="24dp" />
+            android:paddingEnd="24dp"
+            android:text="No rides found"
+            android:textAlignment="center"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp" />
 
         <!-- Demo Button -->
         <com.google.android.material.button.MaterialButton
@@ -62,24 +110,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
             android:text="Can't find one? Try Demo Booking"
             android:textColor="@color/primary_blue"
-            app:strokeColor="@color/primary_blue"
             app:cornerRadius="20dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp" />
+            app:strokeColor="@color/primary_blue" />
 
     </LinearLayout>
 
     <!-- Demo Button (Always Visible at Bottom) -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/demoButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="📍 Demo: See booking walkthrough"
-        android:textColor="@color/primary_blue"
-        android:textSize="14sp" />
 
 </LinearLayout>

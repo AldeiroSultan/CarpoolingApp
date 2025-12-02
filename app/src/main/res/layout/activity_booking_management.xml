@@ -10,10 +10,11 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_blue"
-        android:elevation="4dp"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
+        android:layout_height="wrap_content"
+        android:background="#9CABC2"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        app:navigationIcon="@drawable/white_arrow"
         app:title="Booking Management"
         app:titleTextColor="@color/white" />
 

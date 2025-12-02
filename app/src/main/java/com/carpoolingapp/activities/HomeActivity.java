@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initViews() {
         userNameText = findViewById(R.id.userNameText);
+        TextView userNameText2 = findViewById(R.id.helloText);
         myBookingsButton = findViewById(R.id.myBookingsButton);
         myListingsButton = findViewById(R.id.myListingsButton);
         recyclerView = findViewById(R.id.recyclerView);
@@ -152,10 +153,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void loadUserData() {
-        if (userNameText != null) {
-            String userName = prefsHelper.getUserName();
-            userNameText.setText(userName);
-        }
+        String userName = prefsHelper.getUserName();
+        userNameText.setText(userName.split(" ")[0]); // only show first name
     }
 
     private void setupRecyclerView() {
@@ -186,18 +185,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void updateModeUI() {
-        if (myBookingsButton != null && myListingsButton != null) {
-            if (isBookingsMode) {
-                myBookingsButton.setBackgroundTintList(getColorStateList(R.color.status_active));
-                myBookingsButton.setTextColor(getColor(R.color.white));
-                myListingsButton.setBackgroundTintList(null);
-                myListingsButton.setTextColor(getColor(R.color.primary_blue));
-            } else {
-                myListingsButton.setBackgroundTintList(getColorStateList(R.color.status_active));
-                myListingsButton.setTextColor(getColor(R.color.white));
-                myBookingsButton.setBackgroundTintList(null);
-                myBookingsButton.setTextColor(getColor(R.color.primary_blue));
-            }
+        if (isBookingsMode) {
+            myBookingsButton.setBackgroundTintList(getColorStateList(R.color.status_active));
+            myBookingsButton.setTextColor(getColor(R.color.white));
+            myListingsButton.setBackgroundTintList(getColorStateList(R.color.status_inactive));
+            myListingsButton.setTextColor(getColor(R.color.primary_blue));
+        } else {
+            myListingsButton.setBackgroundTintList(getColorStateList(R.color.status_active));
+            myListingsButton.setTextColor(getColor(R.color.white));
+            myBookingsButton.setBackgroundTintList(getColorStateList(R.color.status_inactive));
+            myBookingsButton.setTextColor(getColor(R.color.primary_blue));
         }
     }
 

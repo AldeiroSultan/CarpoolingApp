@@ -9,28 +9,29 @@
     android:orientation="vertical">
 
     <!-- Header -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="280dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        app:cardBackgroundColor="#9CABC2"
-        app:cardCornerRadius="0dp"
+        android:layout_width="411dp"
+        android:layout_height="319dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="-30dp"
+        android:layout_marginEnd="1dp"
+        app:cardBackgroundColor="@color/background_blue"
+        app:cardCornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/userNameText2"
+            android:id="@+id/helloText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginTop="105dp"
             android:text="@string/hello"
             android:textColor="@color/text_white"
-            android:textSize="40sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <TextView
@@ -38,11 +39,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="140dp"
             android:text="@string/user"
             android:textColor="@color/text_white"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/profileImage"
@@ -56,7 +59,8 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Search View -->
+    <!-- Content Section -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/searchView"
         android:layout_width="0dp"
@@ -98,9 +102,40 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    <!-- Empty State -->
 
-    <!-- Mode Toggle Buttons -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myBookingsButton">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:alpha="0.3"
+            android:contentDescription="@string/empty"
+            android:src="@android:drawable/ic_menu_view" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/no_rides_yet"
+            android:textAlignment="center"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Mode Toggle -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/myBookingsButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -110,10 +145,10 @@
         android:layout_marginTop="16dp"
         android:text="@string/your_bookings"
         android:textColor="@color/primary_blue"
-        app:cornerRadius="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cornerRadius="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:strokeColor="@color/primary_blue" />
+        app:strokeColor="@color/status_inactive" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/myListingsButton"
@@ -124,10 +159,14 @@
         android:layout_marginTop="16dp"
         android:text="@string/your_listings"
         android:textColor="@color/primary_blue"
-        app:cornerRadius="20dp"
-        app:layout_constraintStart_toEndOf="@+id/myBookingsButton"
+        app:cornerRadius="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/myListingsButton"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:strokeColor="@color/primary_blue" />
+        app:strokeColor="@color/status_inactive" />
+
+    <!-- Bookings/Listings RecyclerView -->
 
     <!-- Content RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
@@ -165,18 +204,8 @@
             android:contentDescription="Empty"
             android:src="@android:drawable/ic_menu_view" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="No rides yet"
-            android:textAlignment="center"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
     <!-- Bottom Navigation -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
