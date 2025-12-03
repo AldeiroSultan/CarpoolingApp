@@ -13,12 +13,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Price and Seats -->
+        <!-- Price, Seats, and Amenity Icons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <!-- Price -->
             <TextView
                 android:id="@+id/priceText"
                 android:layout_width="wrap_content"
@@ -33,13 +34,72 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <!-- Seats -->
             <TextView
                 android:id="@+id/seatsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
                 android:text="2 seats"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
+
+            <!-- Amenity Icons (Like in your screenshot) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Luggage Icon -->
+                <ImageView
+                    android:id="@+id/ic_luggage"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_luggage"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_amenity_icon"
+                    android:contentDescription="Luggage allowed" />
+
+                <!-- Pet Icon -->
+                <ImageView
+                    android:id="@+id/ic_pet"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_pet"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_amenity_icon"
+                    android:contentDescription="Pet friendly" />
+
+                <!-- Bike Icon -->
+                <ImageView
+                    android:id="@+id/ic_bike"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_bike"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_amenity_icon"
+                    android:contentDescription="Bikes allowed" />
+
+                <!-- Snowboard Icon -->
+                <ImageView
+                    android:id="@+id/ic_snowboard"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_snowboard"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_amenity_icon"
+                    android:contentDescription="Snowboards allowed" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,19 +47,22 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
         holder.driverNameText.setText(ride.getDriverName());
         holder.seatsText.setText(ride.getAvailableSeats() + " seats");
 
-        // Color coding based on ride type - cast itemView to MaterialCardView
+        // NEW: Show/hide amenity icons based on ride amenities
+        holder.luggageIcon.setVisibility(ride.isAllowsLuggage() ? View.VISIBLE : View.GONE);
+        holder.petIcon.setVisibility(ride.isAllowsPets() ? View.VISIBLE : View.GONE);
+        holder.bikeIcon.setVisibility(ride.isAllowsBikes() ? View.VISIBLE : View.GONE);
+        holder.snowboardIcon.setVisibility(ride.isAllowsSnowboards() ? View.VISIBLE : View.GONE);
+
+        // Color coding based on ride type
         if (holder.itemView instanceof com.google.android.material.card.MaterialCardView) {
             com.google.android.material.card.MaterialCardView cardView =
                     (com.google.android.material.card.MaterialCardView) holder.itemView;
 
             if ("looking".equals(ride.getRideType())) {
-                // Green for "looking for ride"
                 cardView.setCardBackgroundColor(context.getColor(R.color.ride_looking_bg));
             } else if ("hosting".equals(ride.getRideType())) {
-                // Blue for "hosting ride"
                 cardView.setCardBackgroundColor(context.getColor(R.color.ride_hosting_bg));
             } else {
-                // Default white
                 cardView.setCardBackgroundColor(context.getColor(R.color.white));
             }
         }
@@ -80,6 +84,7 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
 
     static class RideViewHolder extends RecyclerView.ViewHolder {
         TextView fromText, toText, dateText, timeText, priceText, driverNameText, seatsText;
+        ImageView luggageIcon, petIcon, bikeIcon, snowboardIcon;
 
         public RideViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +95,12 @@ public class RideAdapter extends RecyclerView.Adapter<RideAdapter.RideViewHolder
             priceText = itemView.findViewById(R.id.priceText);
             driverNameText = itemView.findViewById(R.id.driverNameText);
             seatsText = itemView.findViewById(R.id.seatsText);
+
+            // FIXED: Amenity icons with correct IDs
+            luggageIcon = itemView.findViewById(R.id.ic_luggage);
+            petIcon = itemView.findViewById(R.id.ic_pet);
+            bikeIcon = itemView.findViewById(R.id.ic_bike);
+            snowboardIcon = itemView.findViewById(R.id.ic_snowboard);
         }
     }
 }

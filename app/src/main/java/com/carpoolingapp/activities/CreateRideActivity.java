@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +30,15 @@ public class CreateRideActivity extends AppCompatActivity {
     private View dateLayout, timeLayout;
     private BottomNavigationView bottomNav;
 
+    // NEW: Amenity CheckBoxes
+    private CheckBox luggageCheckBox, petsCheckBox, bikesCheckBox, snowboardsCheckBox;
+
     private FirebaseHelper firebaseHelper;
     private SharedPrefsHelper prefsHelper;
 
     private String selectedDate = "";
     private String selectedTime = "";
-    private boolean isHostingRide = true; // Default to hosting
+    private boolean isHostingRide = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,12 @@ public class CreateRideActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNav);
         lookingForRideButton = findViewById(R.id.lookingForRideButton);
         hostingRideButton = findViewById(R.id.hostingRideButton);
+
+        // NEW: Initialize amenity checkboxes
+        luggageCheckBox = findViewById(R.id.luggageCheckBox);
+        petsCheckBox = findViewById(R.id.petsCheckBox);
+        bikesCheckBox = findViewById(R.id.bikesCheckBox);
+        snowboardsCheckBox = findViewById(R.id.snowboardsCheckBox);
     }
 
     private void initFirebase() {
@@ -234,7 +244,6 @@ public class CreateRideActivity extends AppCompatActivity {
             return;
         }
 
-        // Navigate to search results
         Intent intent = new Intent(this, SearchRideActivity.class);
         intent.putExtra("from", from);
         intent.putExtra("to", to);
@@ -296,6 +305,12 @@ public class CreateRideActivity extends AppCompatActivity {
                 0.0, 0.0, 0.0, 0.0,
                 selectedDate, selectedTime, seats, price, rideType
         );
+
+        // NEW: Set amenities
+        ride.setAllowsLuggage(luggageCheckBox.isChecked());
+        ride.setAllowsPets(petsCheckBox.isChecked());
+        ride.setAllowsBikes(bikesCheckBox.isChecked());
+        ride.setAllowsSnowboards(snowboardsCheckBox.isChecked());
 
         createRideButton.setEnabled(false);
         createRideButton.setText("Creating...");

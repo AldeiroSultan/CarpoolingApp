@@ -3,6 +3,9 @@ package com.carpoolingapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchRideActivity extends AppCompatActivity {
@@ -26,24 +31,26 @@ public class SearchRideActivity extends AppCompatActivity {
     private View emptyState;
     private TextView emptyText;
     private MaterialButton demoButton, demoWalkthroughButton;
+    private Spinner sortSpinner;
     private RideAdapter adapter;
     private List<Ride> rideList;
     private FirebaseHelper firebaseHelper;
 
     private String searchFrom, searchTo, searchDate;
+    private String currentSortOption = "Cheapest";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_ride);
 
-        // Get search parameters
         searchFrom = getIntent().getStringExtra("from");
         searchTo = getIntent().getStringExtra("to");
         searchDate = getIntent().getStringExtra("date");
 
         initViews();
         setupToolbar();
+        setupSortSpinner();
         setupRecyclerView();
         setupDemoButtons();
         searchRides();
@@ -55,6 +62,7 @@ public class SearchRideActivity extends AppCompatActivity {
         emptyText = findViewById(R.id.emptyText);
         demoButton = findViewById(R.id.demoButton);
         demoWalkthroughButton = findViewById(R.id.demoWalkthroughButton);
+        sortSpinner = findViewById(R.id.sortSpinner);
         firebaseHelper = FirebaseHelper.getInstance();
     }
 
@@ -65,10 +73,29 @@ public class SearchRideActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Search Results");
         }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(v -> finish());
+    }
+
+    private void setupSortSpinner() {
+        if (sortSpinner == null) return;
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.sort_options,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(adapter);
+
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentSortOption = parent.getItemAtPosition(position).toString();
+                sortRides();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
@@ -78,7 +105,18 @@ public class SearchRideActivity extends AppCompatActivity {
         adapter = new RideAdapter(this, rideList, new RideAdapter.OnRideClickListener() {
             @Override
             public void onRideClick(Ride ride) {
-                Toast.makeText(SearchRideActivity.this, "Ride from " + ride.getFromLocation() + " to " + ride.getToLocation(), Toast.LENGTH_SHORT).show();
+                // Open ride details
+                Intent intent = new Intent(SearchRideActivity.this, RideDetailActivity.class);
+                intent.putExtra("rideId", ride.getRideId());
+                intent.putExtra("driverId", ride.getDriverId());
+                intent.putExtra("driverName", ride.getDriverName());
+                intent.putExtra("from", ride.getFromLocation());
+                intent.putExtra("to", ride.getToLocation());
+                intent.putExtra("date", ride.getDate());
+                intent.putExtra("time", ride.getTime());
+                intent.putExtra("price", ride.getPricePerSeat());
+                intent.putExtra("seats", ride.getAvailableSeats());
+                startActivity(intent);
             }
         });
         ridesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,14 +124,11 @@ public class SearchRideActivity extends AppCompatActivity {
     }
 
     private void setupDemoButtons() {
-        View.OnClickListener demoClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start demo walkthrough
-                Toast.makeText(SearchRideActivity.this, "Starting demo walkthrough...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SearchRideActivity.this, RideDetailActivity.class);
-                startActivity(intent);
-            }
+        View.OnClickListener demoClickListener = v -> {
+            Toast.makeText(SearchRideActivity.this, "Starting demo walkthrough...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SearchRideActivity.this, RideDetailActivity.class);
+            intent.putExtra("isDemo", true);
+            startActivity(intent);
         };
 
         if (demoButton != null) {
@@ -118,15 +153,16 @@ public class SearchRideActivity extends AppCompatActivity {
                             if (ride != null) {
                                 ride.setRideId(snapshot.getKey());
 
-                                // ONLY show rides that are "hosting" type
                                 if (!"hosting".equals(ride.getRideType())) {
                                     continue;
                                 }
 
-                                // Filter by location and date
-                                boolean matchesFrom = searchFrom == null || ride.getFromLocation().toLowerCase().contains(searchFrom.toLowerCase());
-                                boolean matchesTo = searchTo == null || ride.getToLocation().toLowerCase().contains(searchTo.toLowerCase());
-                                boolean matchesDate = searchDate == null || ride.getDate().equals(searchDate);
+                                boolean matchesFrom = searchFrom == null ||
+                                        ride.getFromLocation().toLowerCase().contains(searchFrom.toLowerCase());
+                                boolean matchesTo = searchTo == null ||
+                                        ride.getToLocation().toLowerCase().contains(searchTo.toLowerCase());
+                                boolean matchesDate = searchDate == null ||
+                                        ride.getDate().equals(searchDate);
 
                                 if (matchesFrom && matchesTo && matchesDate) {
                                     rideList.add(ride);
@@ -134,12 +170,15 @@ public class SearchRideActivity extends AppCompatActivity {
                             }
                         }
 
+                        sortRides();
                         adapter.notifyDataSetChanged();
 
                         if (rideList.isEmpty()) {
                             emptyState.setVisibility(View.VISIBLE);
                             ridesRecyclerView.setVisibility(View.GONE);
-                            emptyText.setText("No rides found matching your search");
+                            if (emptyText != null) {
+                                emptyText.setText("No rides found matching your search");
+                            }
                         } else {
                             emptyState.setVisibility(View.GONE);
                             ridesRecyclerView.setVisibility(View.VISIBLE);
@@ -151,5 +190,27 @@ public class SearchRideActivity extends AppCompatActivity {
                         Toast.makeText(SearchRideActivity.this, "Search failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void sortRides() {
+        if ("Cheapest".equals(currentSortOption)) {
+            Collections.sort(rideList, new Comparator<Ride>() {
+                @Override
+                public int compare(Ride r1, Ride r2) {
+                    return Double.compare(r1.getPricePerSeat(), r2.getPricePerSeat());
+                }
+            });
+        } else if ("Fastest".equals(currentSortOption)) {
+            Collections.sort(rideList, new Comparator<Ride>() {
+                @Override
+                public int compare(Ride r1, Ride r2) {
+                    return r1.getTime().compareTo(r2.getTime());
+                }
+            });
+        }
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }
