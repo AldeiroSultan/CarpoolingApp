@@ -109,7 +109,6 @@ public class CreateRideActivity extends AppCompatActivity {
             return;
         }
 
-        // Disable bottom nav selection change while editing to reduce accidental navigation
         if (bottomNav != null) {
             bottomNav.setVisibility(View.GONE);
         }
