@@ -41,21 +41,7 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Demo Badge -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_status_badge"
-                android:paddingStart="16dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="6dp"
-                android:text="🎬 DEMO RIDE"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+
 
             <!-- Driver Info -->
             <LinearLayout
@@ -353,14 +339,30 @@
 
     </ScrollView>
 
-    <!-- Book Now Button -->
+    <!-- Primary Action Button (Book / Edit) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bookNowButton"
         style="@style/ButtonPrimary"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
         android:text="Book Now"
         app:backgroundTint="#9CABC2" />
+
+    <!-- Cancel Ride Button (only visible in manage mode) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelRideButton"
+        style="@style/ButtonSecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:text="Cancel Ride"
+        android:textAllCaps="false"
+         />
+    </LinearLayout>
 
 </LinearLayout>

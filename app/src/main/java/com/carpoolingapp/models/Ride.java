@@ -91,6 +91,8 @@ public class Ride {
     public int getAvailableSeats() { return availableSeats; }
     public void setAvailableSeats(int availableSeats) { this.availableSeats = availableSeats; }
 
+
+
     public double getPricePerSeat() { return pricePerSeat; }
     public void setPricePerSeat(double pricePerSeat) { this.pricePerSeat = pricePerSeat; }
 

@@ -16,6 +16,7 @@ import com.carpoolingapp.R;
 import com.carpoolingapp.adapters.RideAdapter;
 import com.carpoolingapp.models.Ride;
 import com.carpoolingapp.utils.FirebaseHelper;
+import com.carpoolingapp.utils.SharedPrefsHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -33,6 +34,7 @@ public class SearchRideActivity extends AppCompatActivity {
     private RideAdapter hostingAdapter, requestAdapter;
     private List<Ride> hostingRideList, requestRideList;
     private FirebaseHelper firebaseHelper;
+    private SharedPrefsHelper prefsHelper;
 
     private String searchFrom, searchTo, searchDate;
     private String currentSortOption = "Cheapest";
@@ -71,6 +73,7 @@ public class SearchRideActivity extends AppCompatActivity {
         sortSpinner = findViewById(R.id.sortSpinner);
         filterSpinner = findViewById(R.id.filterSpinner);
         firebaseHelper = FirebaseHelper.getInstance();
+        prefsHelper = new SharedPrefsHelper(this);
     }
 
     private void setupToolbar() {
@@ -170,24 +173,39 @@ public class SearchRideActivity extends AppCompatActivity {
                         hostingRideList.clear();
                         requestRideList.clear();
 
+                        String currentUserId = prefsHelper.getUserId();
+
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Ride ride = snapshot.getValue(Ride.class);
-                            if (ride != null) {
-                                ride.setRideId(snapshot.getKey());
+                            if (ride == null) continue;
 
-                                boolean matchesFrom = searchFrom == null ||
-                                        ride.getFromLocation().toLowerCase().contains(searchFrom.toLowerCase());
-                                boolean matchesTo = searchTo == null ||
-                                        ride.getToLocation().toLowerCase().contains(searchTo.toLowerCase());
-                                boolean matchesDate = searchDate == null || searchDate.isEmpty() ||
-                                        ride.getDate().equals(searchDate);
+                            ride.setRideId(snapshot.getKey());
 
-                                if (matchesFrom && matchesTo && matchesDate) {
-                                    if ("hosting".equals(ride.getRideType())) {
-                                        hostingRideList.add(ride);
-                                    } else if ("request".equals(ride.getRideType())) {
-                                        requestRideList.add(ride);
-                                    }
+                            // Exclude listings created by the current user (both hosting and requests)
+                            if (currentUserId != null &&
+                                    ride.getDriverId() != null &&
+                                    currentUserId.equals(ride.getDriverId())) {
+                                continue;
+                            }
+
+                            // Exclude hosting rides with no remaining seats
+                            if ("hosting".equals(ride.getRideType()) &&
+                                    ride.getAvailableSeats() <= 0) {
+                                continue;
+                            }
+
+                            boolean matchesFrom = searchFrom == null ||
+                                    ride.getFromLocation().toLowerCase().contains(searchFrom.toLowerCase());
+                            boolean matchesTo = searchTo == null ||
+                                    ride.getToLocation().toLowerCase().contains(searchTo.toLowerCase());
+                            boolean matchesDate = searchDate == null || searchDate.isEmpty() ||
+                                    ride.getDate().equals(searchDate);
+
+                            if (matchesFrom && matchesTo && matchesDate) {
+                                if ("hosting".equals(ride.getRideType())) {
+                                    hostingRideList.add(ride);
+                                } else if ("request".equals(ride.getRideType())) {
+                                    requestRideList.add(ride);
                                 }
                             }
                         }
