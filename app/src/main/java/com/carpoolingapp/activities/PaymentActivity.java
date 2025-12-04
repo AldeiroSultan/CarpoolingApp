@@ -151,6 +151,9 @@ public class PaymentActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
+                    // Normal flow: create booking record before showing receipt
+                    createBooking();
+
                     // Normal flow: Create receipt and show it
                     // TODO: Save receipt to Firebase
                     Intent intent = new Intent(PaymentActivity.this, ReceiptActivity.class);
