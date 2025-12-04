@@ -153,6 +153,7 @@ public class ChatActivity extends AppCompatActivity {
         String currentUserName = prefsHelper.getUserName();
 
         Message userMessage = new Message(
+                conversationId,
                 currentUserId,
                 currentUserName,
                 otherUserId,
@@ -176,6 +177,7 @@ public class ChatActivity extends AppCompatActivity {
         String reply = generateAutoReply(userMessage);
 
         Message botMessage = new Message(
+                conversationId,
                 otherUserId,
                 otherUserName,
                 prefsHelper.getUserId(),
@@ -253,6 +255,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void addSystemMessage(String text) {
         Message systemMessage = new Message(
+                conversationId,
                 "system",
                 "System",
                 prefsHelper.getUserId(),
