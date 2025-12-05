@@ -122,13 +122,12 @@ public class PaymentActivity extends AppCompatActivity {
                 String rideId = getIntent().getStringExtra("rideId");
                 String driverId = getIntent().getStringExtra("driverId");
                 String driverName = getIntent().getStringExtra("driverName");
-                String fromLocation = getIntent().getStringExtra("fromLocation");
-                String toLocation = getIntent().getStringExtra("toLocation");
+                String fromLocation = getIntent().getStringExtra("from");
+                String toLocation = getIntent().getStringExtra("to");
                 String date = getIntent().getStringExtra("date");
                 String time = getIntent().getStringExtra("time");
-                int seats = getIntent().getIntExtra("seats", 1);
-                double pricePerSeat = getIntent().getDoubleExtra("pricePerSeat", 0.0);
-                double totalAmount = getIntent().getDoubleExtra("totalPrice", 0.0);
+                int seats = getIntent().getIntExtra("seatsBooked", 1);
+                double totalAmount = getIntent().getDoubleExtra("totalPrice", 1.0);
 
                 if (isDemo) {
                     // Demo flow: Show receipt then go to chat
@@ -137,6 +136,7 @@ public class PaymentActivity extends AppCompatActivity {
                     intent.putExtra("rideId", rideId);
                     intent.putExtra("riderName", "Demo Rider");
                     intent.putExtra("riderEmail", "rider@demo.com");
+                    intent.putExtra("driverId", driverId);
                     intent.putExtra("driverName", driverName != null ? driverName : "Demo Driver");
                     intent.putExtra("driverEmail", "driver@demo.com");
                     intent.putExtra("fromLocation", fromLocation != null ? fromLocation : "Downtown Vancouver");
@@ -144,17 +144,24 @@ public class PaymentActivity extends AppCompatActivity {
                     intent.putExtra("date", date != null ? date : "Dec 15, 2024");
                     intent.putExtra("time", time != null ? time : "10:00 AM");
                     intent.putExtra("seats", seats);
-                    intent.putExtra("pricePerSeat", pricePerSeat);
+                    intent.putExtra("pricePerSeat", totalAmount / seats);
                     intent.putExtra("totalAmount", totalAmount);
                     intent.putExtra("paymentMethod", "Demo Payment");
                     intent.putExtra("isDemo", true);
                     startActivity(intent);
                     finish();
                 } else {
+                    // Normal flow: create booking record before showing receipt
+                    createBooking();
+
                     // Normal flow: Create receipt and show it
                     // TODO: Save receipt to Firebase
                     Intent intent = new Intent(PaymentActivity.this, ReceiptActivity.class);
+                    intent.putExtra("bookingId", rideId + driverId);
                     intent.putExtra("rideId", rideId);
+                    intent.putExtra("riderId", prefsHelper.getUserId());
+                    intent.putExtra("riderName", prefsHelper.getUserName());
+                    intent.putExtra("riderEmail", prefsHelper.getUserEmail());
                     intent.putExtra("driverId", driverId);
                     intent.putExtra("driverName", driverName);
                     intent.putExtra("fromLocation", fromLocation);
@@ -162,7 +169,7 @@ public class PaymentActivity extends AppCompatActivity {
                     intent.putExtra("date", date);
                     intent.putExtra("time", time);
                     intent.putExtra("seats", seats);
-                    intent.putExtra("pricePerSeat", pricePerSeat);
+                    intent.putExtra("pricePerSeat", totalAmount / seats);
                     intent.putExtra("totalAmount", totalAmount);
                     intent.putExtra("paymentMethod", "Credit Card");
                     startActivity(intent);

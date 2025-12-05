@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void loadUserData() {
-        userNameText.setText(prefsHelper.getUserName());
+        userNameText.setText(prefsHelper.getUserName().split(" ")[0]);
     }
 
     private void updateModeUI() {
@@ -187,7 +187,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         for (DataSnapshot snap : ds.getChildren()) {
                             Ride ride = snap.getValue(Ride.class);
-                            if (ride != null && "hosting".equals(ride.getRideType())) {
+                            if (ride != null && "hosting".equals(ride.getRideType()) && "active".equalsIgnoreCase(ride.getStatus())) {
                                 ride.setRideId(snap.getKey());
                                 unifiedList.add(ride);
                             }
@@ -209,6 +209,11 @@ public class HomeActivity extends AppCompatActivity {
                         for (DataSnapshot snap : ds.getChildren()) {
                             Booking booking = snap.getValue(Booking.class);
                             if (booking != null) {
+                                // Skip cancelled bookings so cancelled rides don't appear in the list
+                                String status = booking.getStatus();
+                                if ("cancelled".equalsIgnoreCase(status)) {
+                                    continue;
+                                }
                                 booking.setBookingId(snap.getKey());
                                 unifiedList.add(booking);
                             }
@@ -302,7 +307,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         for (DataSnapshot snap : ds.getChildren()) {
                             Ride ride = snap.getValue(Ride.class);
-                            if (ride != null && "request".equals(ride.getRideType())) {
+                            if (ride != null && "request".equals(ride.getRideType()) && "active".equalsIgnoreCase(ride.getStatus())) {
                                 ride.setRideId(snap.getKey());
                                 rideRequestsList.add(ride);
                             }

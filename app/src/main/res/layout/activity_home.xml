@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="289dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="-45dp"
+        android:layout_marginTop="-100dp"
         android:layout_marginEnd="1dp"
         app:cardBackgroundColor="@color/background_blue"
         app:cardCornerRadius="45dp">
@@ -23,29 +23,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="145dp"
             android:text="@string/hello"
             android:textColor="@color/text_white"
             android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:letterSpacing="-0.02" />
 
         <TextView
             android:id="@+id/userNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="170dp"
             android:text="@string/user"
             android:textColor="@color/text_white"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textSize="52sp"
+            android:textStyle="bold"
+            android:letterSpacing="-0.04" />
 
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="280dp"
+            android:layout_marginTop="140dp"
             android:contentDescription="Profile"
             android:padding="2dp"
             android:src="@drawable/avatar" />
